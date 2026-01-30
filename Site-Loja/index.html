@@ -215,6 +215,83 @@ mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Ent
         <a href="#products" class="btn btn-primary btn-block">Ver Produtos</a>
     </div>
 
+    <!-- Music Player -->
+    <div id="music-controls" style="position: fixed; bottom: 15px; left: 15px; z-index: 9999; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 5px; border: 1px solid #8a2be2; transition: all 0.3s ease; transform: scale(0.9);">
+        <i class="fas fa-volume-up" id="music-icon" style="color: #fff; font-size: 12px;"></i>
+        <span style="color: #fff; font-size: 11px; font-family: sans-serif;">Som</span>
+    </div>
+    <div id="youtube-player" style="display: none;"></div>
+    
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'VsSGtBNkMds',
+                playerVars: { 
+                    'autoplay': 1, 
+                    'controls': 0, 
+                    'loop': 1, 
+                    'playlist': 'VsSGtBNkMds',
+                    'enablejsapi': 1,
+                    'origin': window.location.origin
+                },
+                events: { 'onReady': onPlayerReady }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.setVolume(20);
+            event.target.playVideo();
+        }
+
+        // Tentar forçar o play na primeira interação do usuário caso o autoplay falhe
+        function forcePlay() {
+            if (player && player.getPlayerState() !== 1) { // 1 = playing
+                player.playVideo();
+                player.setVolume(20);
+                // Se o player começar a tocar, removemos os listeners
+                if (player.getPlayerState() === 1) {
+                    removeInteractionListeners();
+                }
+            }
+        }
+
+        function removeInteractionListeners() {
+            document.removeEventListener('click', forcePlay);
+            document.removeEventListener('keydown', forcePlay);
+            document.removeEventListener('touchstart', forcePlay);
+            document.removeEventListener('scroll', forcePlay);
+        }
+
+        // Adiciona listeners para qualquer interação
+        document.addEventListener('click', forcePlay);
+        document.addEventListener('keydown', forcePlay);
+        document.addEventListener('touchstart', forcePlay);
+        document.addEventListener('scroll', forcePlay);
+
+        document.getElementById('music-controls').addEventListener('click', function() {
+            if (player) {
+                if (player.isMuted() || player.getVolume() === 0) {
+                    player.unMute();
+                    player.setVolume(20);
+                    document.getElementById('music-icon').className = 'fas fa-volume-up';
+                    this.style.opacity = '1';
+                } else {
+                    player.mute();
+                    document.getElementById('music-icon').className = 'fas fa-volume-mute';
+                    this.style.opacity = '0.7';
+                }
+            }
+        });
+    </script>
+
     <script src="js/script.js"></script>
 </body>
 </html>
