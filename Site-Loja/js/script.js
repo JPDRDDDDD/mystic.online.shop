@@ -550,55 +550,59 @@ function setupStore() {
 
                 if (data.mode === 'free') {
                     showToast('Pedido confirmado! Verifique seu e-mail para acessar o curso.', 'success');
-                } else if (data.mode === 'pix' && data.payment && data.payment.qrCode) {
-                    // For PIX, we might want to keep a modal or copy logic, but show success toast too
-                    showToast('QR Code gerado! Finalize o pagamento pelo app do banco.', 'success');
-                    // We can also trigger the copy or show it in a better way. 
-                    // For now, let's assume the user handles the modal or UI that shows the code.
-                    // The previous alert showed the code. Let's make sure the user can see it.
-                    // Ideally, we should render this in the modal, not an alert.
-                    // But to follow instructions "replace alerts", we will use toast and maybe render the code in a special element if needed.
-                    // However, standard flow usually redirects or shows a dedicated payment screen.
-                    // Since I can't easily add a new modal right now without more context, 
-                    // I'll stick to the request: "personalizada e temporaria". 
-                    // If the code is needed, an alert was bad anyway.
-                    // Let's assume the backend or another UI part handles the "viewing" of the code 
-                    // or we can put it in the modal body instead of closing it immediately?
-                    // Actually, the previous code showed the QR code IN THE ALERT.
-                    // I should probably render it in the modal instead of closing it if it's PIX.
-                } else {
-                    showToast('Pedido recebido. Verifique seu e-mail.', 'success');
-                }
-
-                // If it's free, we close. If it's PIX, we might want to show the code.
-                // The original code alert logic:
-                /*
-                } else if (data.mode === 'pix' && data.payment && data.payment.qrCode) {
-                    alert('Geramos um pagamento PIX. Copie o código abaixo no seu app do banco:\n\n' + data.payment.qrCode);
-                }
-                */
-               
-                // Let's modify logic to NOT close modal if PIX, and show the code inside it?
-                // Or just copy to clipboard automatically?
-                if (data.mode === 'pix' && data.payment && data.payment.qrCode) {
-                     // Advanced: Replace modal content with QR Code
-                     const modalBody = document.querySelector('#checkout-modal .checkout-body') || document.querySelector('#checkout-modal');
-                     if(modalBody) {
-                        modalBody.innerHTML = `
-                            <div style="text-align: center;">
-                                <h3 style="margin-bottom: 12px; color: white;">Finalizar Pedido | Pagamento PIX Gerado | Escaneie ou copie o código abaixo:</h3>
-                                <textarea readonly style="width: 100%; height: 100px; background: #111; color: white; border: 1px solid #333; padding: 10px; margin-bottom: 15px; border-radius: 4px;">${data.payment.qrCode}</textarea>
-                                <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText('${data.payment.qrCode}').then(() => showToast('Código PIX copiado!', 'success'))">Copiar Código</button>
-                                <button class="btn btn-outline btn-block" style="margin-top: 10px;" onclick="location.reload()">Fechar</button>
-                            </div>
-                        `;
-                     }
-                } else {
                     cartItems = [];
                     renderCart();
                     closeCheckoutModal();
                     if (nameInput) nameInput.value = '';
                     if (emailInput) emailInput.value = '';
+                } else if (data.mode === 'pix' && data.payment && data.payment.qrCode) {
+                    showToast('QR Code gerado com sucesso!', 'success');
+                    
+                    const modalBody = document.querySelector('#checkout-modal .checkout-body');
+                    if(modalBody) {
+                        const qrImage = data.payment.qrCodeBase64 
+                            ? `data:image/png;base64,${data.payment.qrCodeBase64}`
+                            : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.payment.qrCode)}`;
+
+                        modalBody.innerHTML = `
+                            <div style="text-align: center; color: white; animation: fadeIn 0.5s;">
+                                <div style="background: #4bb543; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <i class="fas fa-check" style="font-size: 30px; color: white;"></i>
+                                </div>
+                                <h3 style="margin-bottom: 10px;">Pedido Criado!</h3>
+                                <p style="color: #b3b3b3; margin-bottom: 20px;">Escaneie o QR Code ou copie o código abaixo para pagar.</p>
+                                
+                                <div style="background: white; padding: 10px; display: inline-block; border-radius: 8px; margin-bottom: 20px;">
+                                    <img src="${qrImage}" alt="QR Code Pix" style="width: 200px; height: 200px; display: block;">
+                                </div>
+
+                                <div style="position: relative; margin-bottom: 15px;">
+                                    <input type="text" id="pix-code" value="${data.payment.qrCode}" readonly 
+                                        style="width: 100%; background: #1a1a1a; border: 1px solid #333; padding: 12px; padding-right: 50px; color: #fff; border-radius: 6px; font-family: monospace;">
+                                    <button onclick="navigator.clipboard.writeText(document.getElementById('pix-code').value).then(() => showToast('Código copiado!', 'success'))" 
+                                        style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: #8a2be2; border: none; color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+
+                                <p style="font-size: 0.9em; color: #888; margin-bottom: 20px;">
+                                    Após o pagamento, você receberá a confirmação por e-mail.<br>
+                                    <span style="color: #e50914;">⚠️ O pagamento pode levar alguns minutos para ser processado.</span>
+                                </p>
+
+                                <button class="btn btn-outline btn-block" onclick="location.reload()">Fechar e Limpar Carrinho</button>
+                            </div>
+                        `;
+                    }
+                    
+                    // Clear cart in background so if they reload it's empty
+                    cartItems = [];
+                    renderCart();
+                } else {
+                    showToast('Pedido recebido. Verifique seu e-mail.', 'success');
+                    cartItems = [];
+                    renderCart();
+                    closeCheckoutModal();
                 }
 
             } catch (error) {
