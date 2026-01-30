@@ -247,7 +247,7 @@ mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Ent
         }
 
         function onPlayerReady(event) {
-            event.target.setVolume(20);
+            event.target.setVolume(10);
             event.target.playVideo();
         }
 
@@ -255,7 +255,7 @@ mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Ent
         function forcePlay() {
             if (player && player.getPlayerState() !== 1) { // 1 = playing
                 player.playVideo();
-                player.setVolume(20);
+                player.setVolume(10);
                 // Se o player começar a tocar, removemos os listeners
                 if (player.getPlayerState() === 1) {
                     removeInteractionListeners();
@@ -280,7 +280,7 @@ mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Ent
             if (player) {
                 if (player.isMuted() || player.getVolume() === 0) {
                     player.unMute();
-                    player.setVolume(20);
+                    player.setVolume(10);
                     document.getElementById('music-icon').className = 'fas fa-volume-up';
                     this.style.opacity = '1';
                 } else {

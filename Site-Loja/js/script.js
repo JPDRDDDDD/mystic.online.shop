@@ -1,4 +1,45 @@
-let PRODUCTS = {};
+let PRODUCTS = {
+    basic_course: {
+        id: 'basic_course',
+        name: 'Curso de Programação Básica',
+        price: 14.99,
+        category: 'DevStart',
+        description: 'Acesso vitalício ao Curso Completo de Programação. Receba seu link do curso imediatamente.',
+        icon: 'fas fa-laptop-code',
+        badge: 'Curso Completo',
+        disabled: false
+    },
+    raffle_ticket: {
+        id: 'raffle_ticket',
+        name: 'Vale Sorteio (R$ 100)',
+        price: 0.00,
+        category: 'Sorteios',
+        description: 'Concorra a R$ 100,00! Ao comprar, você recebe uma Key Aleatória de participação para o sorteio quanto mais comprar maior será suas chances. Lembrando que tem limite de chaves tem apenas 1000 keys disponiveis',
+        icon: 'fas fa-ticket-alt',
+        badge: 'Sorteio',
+        disabled: false
+    },
+    robux_100: {
+        id: 'robux_100',
+        name: '100 Robux',
+        price: 5.00,
+        category: 'Robux',
+        description: 'Pacote de 100 Robux. Compre múltiplos para aumentar a quantidade. Entre no Discord para receber.',
+        icon: 'fas fa-coins',
+        badge: 'Oferta',
+        disabled: false
+    },
+    mystic_credits: {
+        id: 'mystic_credits',
+        name: 'Créditos Mystic (Em breve)',
+        price: null,
+        category: 'Mystic',
+        description: 'Em breve você poderá comprar créditos e outras vantagens usando o mesmo fluxo de pagamento com QR Code do bot.',
+        icon: 'fas fa-gem',
+        badge: 'Em breve',
+        disabled: true
+    }
+};
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -11,15 +52,8 @@ let cartItems = [];
 let currentCategory = 'all';
 
 async function fetchProducts() {
-    const grid = document.getElementById('products-grid');
-    if (grid) {
-        // Show Skeleton Loading
-        grid.innerHTML = `
-            <div class="card-skeleton skeleton"></div>
-            <div class="card-skeleton skeleton"></div>
-            <div class="card-skeleton skeleton"></div>
-        `;
-    }
+    // Renderiza produtos locais imediatamente para garantir visualização
+    renderProducts(currentCategory);
 
     try {
         const response = await fetch('/api/store/products');
@@ -35,11 +69,8 @@ async function fetchProducts() {
         
         renderProducts(currentCategory);
     } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-        const grid = document.getElementById('products-grid');
-        if (grid) {
-            grid.innerHTML = '<p style="color: white; text-align: center;">Não foi possível carregar os produtos no momento.</p>';
-        }
+        console.log('Usando catálogo local (Preview/Offline mode).');
+        // Se falhar, mantém os produtos locais já definidos
     }
 }
 
