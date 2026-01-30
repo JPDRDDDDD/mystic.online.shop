@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Mystic - Produtos Digitais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Mystic Buuixx Logo">
+                <span>Mystic Store</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#hero">Início</a>
+                <a href="#products">Produtos</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-icon" id="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <a href="#products" class="btn btn-primary glow-effect">Ver Produtos</a>
+            </div>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content fade-in-up">
+                <h1>Loja Oficial <br><span class="highlight-text">Mystic Buuixx</span></h1>
+                <p class="hero-subtitle">
+                    Central de produtos digitais da Mystic. Cursos, utilitários e vantagens especiais,
+                    todos entregues com o mesmo sistema de pagamentos usado no nosso bot do Discord.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary btn-large pulse-animation">Explorar Produtos</a>
+                    <a href="https://discord.gg/ec2KKPvpbF" target="_blank" class="btn btn-outline">
+                        Entrar no Discord
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Pagamentos via Mercado Pago</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-headset"></i>
+                        <span>Suporte via Discord</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual fade-in-right">
+                <div class="code-window">
+                    <div class="window-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="window-body">
+                        <pre><code><span class="keyword">const</span> mysticStore = <span class="keyword">new</span> Store();
+mysticStore.<span class="method">addProduct</span>(<span class="string">"Curso de Programação Básica"</span>, <span class="string">"R$ 14,99"</span>);
+mysticStore.<span class="method">addProduct</span>(<span class="string">"Vale Sorteio"</span>, <span class="string">"R$ 0,99"</span>);
+mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Entrega Automática"</span>);</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="products" class="section-black">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nossos <span class="highlight-text">Produtos</span></h2>
+                <p>Escolha o produto desejado. A entrega é feita por e-mail após a aprovação.</p>
+            </div>
+
+            <!-- Filtros de Categoria -->
+            <div class="category-filters fade-in">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="DevStart">DevStart</button>
+                <button class="category-btn" data-category="Robux">Robux</button>
+                <button class="category-btn" data-category="Mystic">Mystic</button>
+            </div>
+
+            <div class="cards-grid" id="products-grid">
+                <!-- Produtos serão renderizados via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section-dark">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Perguntas <span class="highlight-text">Frequentes</span></h2>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">
+                        Como funciona a entrega dos produtos? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        A entrega é totalmente automatizada. Assim que seu pagamento for aprovado, nosso sistema envia imediatamente um e-mail para o endereço cadastrado com todos os detalhes de acesso, links e instruções.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">
+                        Quais são as formas de pagamento aceitas? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Utilizamos o Mercado Pago para processar pagamentos via PIX, garantindo segurança total e aprovação instantânea. O sistema gera um QR Code (ou código Copia e Cola) que você pode pagar diretamente pelo aplicativo do seu banco.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">
+                        É seguro comprar na Mystic Store? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Sim, 100% seguro. Utilizamos criptografia de ponta a ponta e processamos pagamentos através do Mercado Pago, uma das plataformas mais seguras da América Latina. Além disso, não armazenamos dados sensíveis de pagamento em nossos servidores.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">
+                        Preciso ter uma conta no Discord? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Embora não seja obrigatório para a compra, é altamente recomendado. Nosso suporte, comunidade e atualizações exclusivas acontecem no servidor do Discord. Além disso, clientes verificados ganham cargos e benefícios especiais.
+                    </div>
+                </div>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">
+                        Como solicito reembolso ou suporte? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        Caso precise de ajuda ou queira solicitar reembolso (conforme nossa política), entre em nosso servidor do Discord e abra um ticket de suporte. Nossa equipe estará pronta para atender você o mais rápido possível.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i> Mystic Store
+                </div>
+                <p class="copyright">
+                    &copy; 2026 Mystic Buuixx. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CARRINHO -->
+    <div class="cart-sidebar glass-panel" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart-msg">Seu carrinho está vazio</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-value">R$ 0,00</span>
+            </div>
+            <button class="btn btn-primary btn-block" id="checkout-btn">Finalizar Pedido</button>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-header">
+            <h2>Finalizar Pedido</h2>
+            <button id="close-checkout" class="close-modal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="checkout-body">
+            <form id="payment-form">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input id="customer-name" type="text" class="form-control" placeholder="Seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label>E-mail para receber o produto</label>
+                    <input id="customer-email" type="email" class="form-control" placeholder="seu@email.com" required>
+                </div>
+                <p style="color:#b3b3b3; font-size:0.9rem; margin-bottom:24px; line-height: 1.6;">
+                    Ao confirmar, você receberá os detalhes do pedido no seu e-mail e o QR Code PIX para pagamento.
+                    Para sorteios, é obrigatória a presença no Discord.
+                </p>
+                <button type="submit" class="btn btn-primary btn-block btn-large">
+                    Confirmar envio por e-mail
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FLOATING CTA MOBILE -->
+    <div class="floating-cta">
+        <a href="#products" class="btn btn-primary btn-block">Ver Produtos</a>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
