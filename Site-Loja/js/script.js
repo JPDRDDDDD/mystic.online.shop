@@ -1,14 +1,4 @@
 let PRODUCTS = {
-    basic_course: {
-        id: 'basic_course',
-        name: 'Curso de Programação Básica',
-        price: 14.99,
-        category: 'DevStart',
-        description: 'Acesso vitalício ao Curso Completo de Programação. Receba seu link do curso imediatamente.',
-        icon: 'fas fa-laptop-code',
-        badge: 'Curso Completo',
-        disabled: false
-    },
     raffle_ticket: {
         id: 'raffle_ticket',
         name: 'Vale Sorteio (R$ 100)',
@@ -18,26 +8,6 @@ let PRODUCTS = {
         icon: 'fas fa-ticket-alt',
         badge: 'Sorteio',
         disabled: false
-    },
-    robux_100: {
-        id: 'robux_100',
-        name: '100 Robux',
-        price: 5.00,
-        category: 'Robux',
-        description: 'Pacote de 100 Robux. Compre múltiplos para aumentar a quantidade. Entre no Discord para receber.',
-        icon: 'fas fa-coins',
-        badge: 'Oferta',
-        disabled: false
-    },
-    mystic_credits: {
-        id: 'mystic_credits',
-        name: 'Créditos Mystic (Em breve)',
-        price: null,
-        category: 'Mystic',
-        description: 'Em breve você poderá comprar créditos e outras vantagens usando o mesmo fluxo de pagamento com QR Code do bot.',
-        icon: 'fas fa-gem',
-        badge: 'Em breve',
-        disabled: true
     }
 };
 
