@@ -519,12 +519,38 @@ function setupStore() {
                 const data = await submitOrder(name, email);
 
                 if (data.mode === 'free') {
-                    showToast('Pedido confirmado! Verifique seu e-mail para acessar o curso.', 'success');
                     cartItems = [];
                     renderCart();
-                    closeCheckoutModal();
-                    if (nameInput) nameInput.value = '';
-                    if (emailInput) emailInput.value = '';
+
+                    if (data.keys && data.keys.length > 0) {
+                         showToast('Pedido confirmado! Suas chaves foram geradas.', 'success');
+                         
+                         const modalBody = document.querySelector('#checkout-modal .checkout-body');
+                         if(modalBody) {
+                             const keysList = data.keys.map(k => `<div style="background: #111; color: #0f0; padding: 10px; margin: 5px 0; border: 1px dashed #0f0; font-family: monospace; font-size: 1.2em;">${k}</div>`).join('');
+                             
+                             modalBody.innerHTML = `
+                                <div style="text-align: center; color: white; animation: fadeIn 0.5s;">
+                                    <div style="background: #4bb543; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                        <i class="fas fa-check" style="font-size: 30px; color: white;"></i>
+                                    </div>
+                                    <h3 style="margin-bottom: 10px;">Pedido Confirmado!</h3>
+                                    <p style="color: #b3b3b3; margin-bottom: 20px;">Aqui estão suas chaves de sorteio (também enviadas por e-mail):</p>
+                                    
+                                    <div style="text-align: left; background: #222; padding: 15px; border-radius: 8px; margin-bottom: 20px; max-height: 300px; overflow-y: auto;">
+                                        ${keysList}
+                                    </div>
+
+                                    <button class="btn btn-outline btn-block" onclick="location.reload()">Fechar</button>
+                                </div>
+                             `;
+                         }
+                    } else {
+                        showToast('Pedido confirmado! Verifique seu e-mail para acessar o curso.', 'success');
+                        closeCheckoutModal();
+                        if (nameInput) nameInput.value = '';
+                        if (emailInput) emailInput.value = '';
+                    }
                 } else if (data.mode === 'pix' && data.payment && data.payment.qrCode) {
                     showToast('QR Code gerado com sucesso!', 'success');
                     
