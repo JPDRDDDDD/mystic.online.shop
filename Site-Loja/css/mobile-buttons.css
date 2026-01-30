@@ -1,0 +1,53 @@
+/* Mobile FAB Styles - Store */
+.mobile-fab {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #5865F2; /* Discord Color */
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    font-size: 26px;
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-fab:hover {
+    transform: scale(1.1) rotate(5deg);
+    background-color: #4752c4;
+    box-shadow: 0 0 20px rgba(88, 101, 242, 0.6);
+}
+
+.mobile-fab:active {
+    transform: scale(0.95);
+}
+
+.mobile-only-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-fab {
+        display: block;
+        bottom: 90px; /* Moved up to avoid overlap with Floating CTA */
+        animation: floatUp 0.5s ease-out backwards 1s;
+    }
+
+    .nav-menu .mobile-only-nav {
+        display: block;
+        color: #5865F2; /* Discord Blue */
+        font-weight: 700;
+    }
+}
+
+@keyframes floatUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
