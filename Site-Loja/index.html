@@ -274,6 +274,7 @@ mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Ent
             document.removeEventListener('keydown', forcePlay);
             document.removeEventListener('touchstart', forcePlay);
             document.removeEventListener('scroll', forcePlay);
+            document.removeEventListener('mousemove', forcePlay);
         }
 
         // Adiciona listeners para qualquer interação
@@ -281,6 +282,7 @@ mysticStore.<span class="method">checkout</span>(<span class="string">"Pix + Ent
         document.addEventListener('keydown', forcePlay);
         document.addEventListener('touchstart', forcePlay);
         document.addEventListener('scroll', forcePlay);
+        document.addEventListener('mousemove', forcePlay);
 
         document.getElementById('music-controls').addEventListener('click', function() {
             if (player) {
